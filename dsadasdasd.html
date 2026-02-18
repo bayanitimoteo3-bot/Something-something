@@ -1,0 +1,305 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Be My Valentine 💖</title>
+
+<style>
+body {
+    margin: 0;
+    font-family: 'Segoe UI', sans-serif;
+    background: linear-gradient(135deg, #ff9a9e, #fad0c4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    text-align: center;
+    overflow: hidden;
+    padding: 0;
+}
+
+.container {
+    background: rgba(255,255,255,0.9);
+    padding: 40px 20px;
+    border-radius: 30px;
+    width: 90%;
+    max-width: 500px;
+    box-shadow: 0 0 40px rgba(255, 182, 193, 0.7);
+    animation: fadeIn 1s ease;
+}
+
+h1, h2, p {
+    color: #c44569;
+    word-wrap: break-word;
+}
+
+h1 {
+    font-size: clamp(20px, 5vw, 32px);
+    margin: 15px 0;
+}
+
+h2 {
+    font-size: clamp(18px, 4vw, 24px);
+    margin: 15px 0;
+}
+
+p {
+    font-size: clamp(14px, 3vw, 16px);
+    line-height: 1.5;
+    margin: 10px 0;
+}
+
+button {
+    padding: 12px 25px;
+    font-size: clamp(13px, 3vw, 16px);
+    border-radius: 25px;
+    border: none;
+    cursor: pointer;
+    margin: 10px;
+    transition: 0.3s ease;
+    font-weight: bold;
+}
+
+.yes-btn {
+    background: #ff6f91;
+    color: white;
+    box-shadow: 0 0 15px rgba(255,111,145,0.8);
+}
+
+.no-btn {
+    background: #888;
+    color: white;
+}
+
+button:hover {
+    transform: scale(1.1);
+}
+
+button:active {
+    transform: scale(0.95);
+}
+
+.hidden {
+    display: none;
+}
+
+.trailer-btn {
+    background: #ff6f91;
+    color: white;
+    box-shadow: 0 0 10px rgba(255,111,145,0.6);
+}
+
+.continue-btn {
+    background: #ff6f91;
+    color: white;
+    margin-top: 20px;
+}
+
+.big-text {
+    font-size: clamp(28px, 7vw, 50px);
+    font-weight: bold;
+    animation: glow 1.5s infinite alternate;
+    padding: 20px 0;
+}
+
+@keyframes glow {
+    from { text-shadow: 0 0 10px #ff6f91; }
+    to { text-shadow: 0 0 25px #ff2e63; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; transform: scale(0.95); }
+    to { opacity: 1; transform: scale(1); }
+}
+
+.flash {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: white;
+    opacity: 0;
+    pointer-events: none;
+    transition: opacity 0.5s ease;
+}
+
+img {
+    width: 100%;
+    max-width: 300px;
+    border-radius: 20px;
+    margin-top: 20px;
+    box-shadow: 0 0 20px rgba(255,111,145,0.8);
+}
+</style>
+</head>
+
+<body>
+
+<audio id="bgMusic" loop crossorigin="anonymous">
+    <source src="Music/Olivia Newton John - Hopelessly Devoted To You (Instrumental).mp3" type="audio/mpeg">
+</audio>
+
+<div class="flash" id="flash"></div>
+
+<div class="container" id="section1">
+    <h1>Will you be my VALENTINE???????????????</h1>
+    <button class="yes-btn" id="yesBtn" onclick="startDate()">YES</button>
+    <button class="no-btn" id="noBtn" onclick="shrinkNo()">no</button>
+</div>
+
+<div class="container hidden" id="section2">
+    <h2>Our Online DATEEE</h2>
+    <p>We're going to watch a movie together and enjoy the day as if na magkasama tayo!!</p>
+    <button class="continue-btn" onclick="nextSection(3)">Movies to Watch</button>
+</div>
+
+<div class="container hidden" id="section3">
+    <h2>Pick Our Movie</h2>
+    <button onclick="selectMovie(1)">Movie 1</button>
+    <button onclick="selectMovie(2)">Movie 2</button>
+    <button onclick="selectMovie(3)">others</button>
+
+    <p id="movieDescription"></p>
+    <div id="trailerContainer"></div>
+    <button id="continueAfterMovie" class="continue-btn hidden" onclick="nextSection(4)">Continue</button>
+</div>
+
+<div class="container hidden" id="section4">
+    <h2>The Plan </h2>
+    <p>
+        <strong>Time: 1:00 PM</strong><br><br>
+        Naisip ko 1:00pm kasi feeling ko naman hindi tatagal yung zoom meeting ng sobrang tagal.. We'll call sa discord, watch the movie together, after that will rate the movie. after that we can just chill or talk or play Valo after, your call baby.
+    </p>
+    <button class="continue-btn" onclick="nextSection(5)">Continue</button>
+</div>
+
+<div class="container hidden" id="section5">
+    <h2>Something missing....</h2>
+    <p>ano kaya 'yon....</p>
+    <button class="continue-btn" onclick="nextSection(6)">Continue</button>
+</div>
+
+<div class="container hidden" id="section6">
+    <div class="big-text">CHOCOLATESS 🍫</div>
+    <button class="continue-btn" onclick="nextSection(7)">Continue</button>
+</div>
+
+<div class="container hidden" id="section7">
+    <h2>The Chocolate Plan</h2>
+    <p>
+        Remember when I said na i-save mo 'yung post... you still have it ba? order mo naaa I ready a 300 PHP budget for your chocolates!!<br><br>
+        im sorry kung 300 lang... were tight on budget and im saving up for our anniversary...
+    </p>
+    <button class="continue-btn" onclick="nextSection(8)">Continue</button>
+</div>
+
+<div class="container hidden" id="section8">
+    <h2>Valentines message</h2>
+    <p>
+        I really want to give you a flower, I really do. But given our uhh unique circumstance... I still wanna do something equivalent to giving flowers. and ito 'yun... I hope you liked it and the chocolates, hoping we both enjoy our valentines date!!
+    </p>
+    <button class="continue-btn" onclick="nextSection(9)">Continue</button>
+</div>
+
+<div class="container hidden" id="section9">
+    <div class="big-text">I LOVE YOU my beautiful girly 💖</div>
+
+    <img src="https://via.placeholder.com/300?text=Us" alt="Us">
+</div>
+
+<script>
+let yesSize = 1;
+let noSize = 1;
+
+function shrinkNo() {
+    noSize -= 0.2;
+    yesSize += 0.2;
+
+    document.getElementById("noBtn").style.transform = `scale(${noSize})`;
+    document.getElementById("yesBtn").style.transform = `scale(${yesSize})`;
+
+    if (noSize <= 0.2) {
+        document.getElementById("noBtn").style.display = "none";
+    }
+}
+
+function startDate() {
+    const music = document.getElementById("bgMusic");
+
+    music.volume = 0;
+    
+    let playPromise = music.play();
+    
+    if (playPromise !== undefined) {
+        playPromise
+            .then(() => {
+                // Audio started playing
+                console.log("Audio playing");
+            })
+            .catch(error => {
+                console.log("Audio autoplay failed:", error);
+                // Show user a message
+                alert("Click play on the audio player or refresh and try again!");
+            });
+    }
+
+    let fade = setInterval(() => {
+        if (music.volume < 0.5) {
+            music.volume += 0.02;
+        } else {
+            clearInterval(fade);
+        }
+    }, 100);
+    
+    const flash = document.getElementById("flash");
+    flash.style.opacity = 1;
+    setTimeout(() => {
+        flash.style.opacity = 0;
+        nextSection(2);
+    }, 500);
+}
+
+function nextSection(num) {
+    document.querySelectorAll(".container").forEach(sec => sec.classList.add("hidden"));
+    document.getElementById("section" + num).classList.remove("hidden");
+}
+
+function selectMovie(num) {
+    const desc = document.getElementById("movieDescription");
+    const trailer = document.getElementById("trailerContainer");
+    const cont = document.getElementById("continueAfterMovie");
+
+    const movies = {
+        1: {
+            description: "Dr. Kelson finds himself in a shocking new relationship - with consequences that could change the world as they know it - and Spike's encounter with Jimmy Crystal becomes a nightmare he can't ignore.",
+            trailer: "https://www.youtube.com/watch?v=EOwTdTZA8D8"
+        },
+        2: {
+            description: "The adventures of a group of explorers who make use of a newly discovered wormhole to surpass the limitations on human space travel and conquer the vast distances involved in an interstellar voyage.",
+            trailer: "https://www.youtube.com/watch?v=2LqzF5WauAw"
+        },
+        3: {
+            description: "Or kung may irerecommend kapang iba bukod sa dalawa na sinabi ko?",
+        }
+    };
+
+    desc.innerText = movies[num].description;
+
+    if (movies[num].trailer) {
+        trailer.innerHTML = `
+            <a href="${movies[num].trailer}" target="_blank" style="text-decoration: none;">
+                <button class="trailer-btn">🎬 Watch Trailer</button>
+            </a>
+        `;
+    } else {
+        trailer.innerHTML = '';
+    }
+
+    cont.classList.remove("hidden");
+}
+</script>
+
+</body>
+</html>
